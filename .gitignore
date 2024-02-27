@@ -7,7 +7,6 @@
 
 ### others ###
 node_modules
-dist
 .svn
 *.log
 *.xml.versionsBackup
