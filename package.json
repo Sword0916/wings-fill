@@ -1,0 +1,29 @@
+{
+  "name": "@sword0916/wings-fill",
+  "version": "1.0.8",
+  "description": "tween.js 补间动画",
+  "private": false,
+  "main": "./src",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "live-server --port=7070",
+    "watch": "webpack --watch",
+    "build": "webpack",
+    "pub": "npm publish --access public"
+  },
+  "author": "Sword",
+  "keywords": [
+    "tween.js",
+    "补间动画"
+  ],
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.21.4",
+    "@babel/plugin-transform-runtime": "^7.21.4",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.21.4",
+    "babel-loader": "^9.1.2",
+    "webpack": "^5.78.0",
+    "webpack-cli": "^5.0.1"
+  }
+}

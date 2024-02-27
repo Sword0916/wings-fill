@@ -1,0 +1,385 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>缓动函数示意</title>
+    <style type="text/css">
+        .moveBox {
+            position:relative;
+            border:1px solid #000000;
+            width:550px;
+            height:50px;
+        }
+        #idMove {
+            position:absolute;
+            width:50px;
+            height:50px;
+            background:#930;
+        }
+        .charBox {
+            position:relative;
+            width:550px;
+            height:200px;
+            margin-top:50px;
+        }
+
+        #idChart {
+            border:1px solid #000;
+            height:200px;
+        }
+        #idLine{
+            position:absolute;
+            top:0;
+            left:0;
+            height:200px;
+            width:1px;
+            background:#000;
+        }
+        .charLine {
+            position:absolute;
+            background-color:#f60;
+            font-size:0;
+            width:3px;
+            height:3px;
+        }
+    </style>
+</head>
+<body>
+<div style="padding-left:50px;">
+    <div class="moveBox">
+        <div id="idMove"></div>
+    </div>
+    <div class="charBox">
+        <div id="idChart"></div>
+        <div id="idLine"></div>
+    </div>
+
+    <p> Tween类型： <br/>
+        <label>
+            <input checked="checked" name="vTween" type="radio" value="Linear"/>
+            Linear
+        </label>
+        <label>
+            <input name="vTween" type="radio" value="Quad"/>
+            Quad
+        </label>
+        <label>
+            <input name="vTween" type="radio" value="Cubic"/>
+            Cubic
+        </label>
+        <label>
+            <input name="vTween" type="radio" value="Quart"/>
+            Quart
+        </label>
+        <label>
+            <input name="vTween" type="radio" value="Quint"/>
+            Quint
+        </label>
+        <label>
+            <input name="vTween" type="radio" value="Sine"/>
+            Sine
+        </label>
+        <br/>
+        <label>
+            <input name="vTween" type="radio" value="Expo"/>
+            Expo
+        </label>
+        <label>
+            <input name="vTween" type="radio" value="Circ"/>
+            Circ
+        </label>
+        <label>
+            <input name="vTween" type="radio" value="Elastic"/>
+            Elastic
+        </label>
+        <label>
+            <input name="vTween" type="radio" value="Back"/>
+            Back
+        </label>
+        <label>
+            <input name="vTween" type="radio" value="Bounce"/>
+            Bounce
+        </label>
+    </p>
+    <p> ease类型： <br/>
+        <label>
+            <input checked="checked" name="vEase" type="radio" value="easeIn"/>
+            easeIn
+        </label>
+        <label>
+            <input name="vEase" type="radio" value="easeOut"/>
+            easeOut
+        </label>
+        <label>
+            <input name="vEase" type="radio" value="easeInOut"/>
+            easeInOut
+        </label>
+    </p>
+    <input id="idSpeed" type="button" value="减慢速度"/>
+    <input id="idRun" type="button" value=" Run "/>
+</div>
+</body>
+<script type="text/javascript">
+    const Tween = {
+        Linear: function(t, b, c, d) { //匀速
+            return c * t / d + b;
+        },
+        Quad: { //二次方缓动效果
+            easeIn: function(t, b, c, d) {
+                return c * (t /= d) * t + b;
+            },
+            easeOut: function(t, b, c, d) {
+                return -c *(t /= d)*(t-2) + b;
+            },
+            easeInOut: function(t, b, c, d) {
+                if ((t /= d / 2) < 1) return c / 2 * t * t + b;
+                return -c / 2 * ((--t) * (t-2) - 1) + b;
+            }
+        },
+        Cubic: { //三次方缓动效果
+            easeIn: function(t, b, c, d) {
+                return c * (t /= d) * t * t + b;
+            },
+            easeOut: function(t, b, c, d) {
+                return c * ((t = t/d - 1) * t * t + 1) + b;
+            },
+            easeInOut: function(t, b, c, d) {
+                if ((t /= d / 2) < 1) return c / 2 * t * t*t + b;
+                return c / 2*((t -= 2) * t * t + 2) + b;
+            }
+        },
+        Quart: { //四次方缓动效果
+            easeIn: function(t, b, c, d) {
+                return c * (t /= d) * t * t*t + b;
+            },
+            easeOut: function(t, b, c, d) {
+                return -c * ((t = t/d - 1) * t * t*t - 1) + b;
+            },
+            easeInOut: function(t, b, c, d) {
+                if ((t /= d / 2) < 1) return c / 2 * t * t * t * t + b;
+                return -c / 2 * ((t -= 2) * t * t*t - 2) + b;
+            }
+        },
+        Quint: { //五次方缓动效果
+            easeIn: function(t, b, c, d) {
+                return c * (t /= d) * t * t * t * t + b;
+            },
+            easeOut: function(t, b, c, d) {
+                return c * ((t = t/d - 1) * t * t * t * t + 1) + b;
+            },
+            easeInOut: function(t, b, c, d) {
+                if ((t /= d / 2) < 1) return c / 2 * t * t * t * t * t + b;
+                return c / 2*((t -= 2) * t * t * t * t + 2) + b;
+            }
+        },
+        Sine: { //正弦缓动效果
+            easeIn: function(t, b, c, d) {
+                return -c * Math.cos(t/d * (Math.PI/2)) + c + b;
+            },
+            easeOut: function(t, b, c, d) {
+                return c * Math.sin(t/d * (Math.PI/2)) + b;
+            },
+            easeInOut: function(t, b, c, d) {
+                return -c / 2 * (Math.cos(Math.PI * t/d) - 1) + b;
+            }
+        },
+        Expo: { //指数缓动效果
+            easeIn: function(t, b, c, d) {
+                return (t==0) ? b : c * Math.pow(2, 10 * (t/d - 1)) + b;
+            },
+            easeOut: function(t, b, c, d) {
+                return (t==d) ? b + c : c * (-Math.pow(2, -10 * t/d) + 1) + b;
+            },
+            easeInOut: function(t, b, c, d) {
+                if (t==0) return b;
+                if (t==d) return b+c;
+                if ((t /= d / 2) < 1) return c / 2 * Math.pow(2, 10 * (t - 1)) + b;
+                return c / 2 * (-Math.pow(2, -10 * --t) + 2) + b;
+            }
+        },
+        Circ: { //圆形缓动函数
+            easeIn: function(t, b, c, d) {
+                return -c * (Math.sqrt(1 - (t /= d) * t) - 1) + b;
+            },
+            easeOut: function(t, b, c, d) {
+                return c * Math.sqrt(1 - (t = t/d - 1) * t) + b;
+            },
+            easeInOut: function(t, b, c, d) {
+                if ((t /= d / 2) < 1) return -c / 2 * (Math.sqrt(1 - t * t) - 1) + b;
+                return c / 2 * (Math.sqrt(1 - (t -= 2) * t) + 1) + b;
+            }
+        },
+        Elastic: { //指数衰减正弦曲线缓动函数
+            easeIn: function(t, b, c, d, a, p) { //加速
+                var s;
+                if (t==0) return b;
+                if ((t /= d) == 1) return b + c;
+                if (typeof p == "undefined") p = d * .3;
+                if (!a || a < Math.abs(c)) {
+                    s = p / 4;
+                    a = c;
+                } else {
+                    s = p / (2 * Math.PI) * Math.asin(c / a);
+                }
+                return -(a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+            },
+            easeOut: function(t, b, c, d, a, p) { //减速
+                var s;
+                if (t==0) return b;
+                if ((t /= d) == 1) return b + c;
+                if (typeof p == "undefined") p = d * .3;
+                if (!a || a < Math.abs(c)) {
+                    a = c;
+                    s = p / 4;
+                } else {
+                    s = p/(2*Math.PI) * Math.asin(c/a);
+                }
+                return (a * Math.pow(2, -10 * t) * Math.sin((t * d - s) * (2 * Math.PI) / p) + c + b);
+            },
+            easeInOut: function(t, b, c, d, a, p) { //先加速后减速
+                var s;
+                if (t==0) return b;
+                if ((t /= d / 2) == 2) return b+c;
+                if (typeof p == "undefined") p = d * (.3 * 1.5);
+                if (!a || a < Math.abs(c)) {
+                    a = c;
+                    s = p / 4;
+                } else {
+                    s = p / (2  *Math.PI) * Math.asin(c / a);
+                }
+                if (t < 1) return -.5 * (a * Math.pow(2, 10* (t -=1 )) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+                return a * Math.pow(2, -10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p ) * .5 + c + b;
+            }
+        },
+        Back: { //超过范围的三次方的缓动函数
+            easeIn: function(t, b, c, d, s) {
+                if (typeof s == "undefined") s = 1.70158;
+                return c * (t /= d) * t * ((s + 1) * t - s) + b;
+            },
+            easeOut: function(t, b, c, d, s) {
+                if (typeof s == "undefined") s = 1.70158;
+                return c * ((t = t/d - 1) * t * ((s + 1) * t + s) + 1) + b;
+            },
+            easeInOut: function(t, b, c, d, s) {
+                if (typeof s == "undefined") s = 1.70158;
+                if ((t /= d / 2) < 1) return c / 2 * (t * t * (((s *= (1.525)) + 1) * t - s)) + b;
+                return c / 2*((t -= 2) * t * (((s *= (1.525)) + 1) * t + s) + 2) + b;
+            }
+        },
+        Bounce: { //指数衰减的反弹曲线缓动函数
+            easeIn: function(t, b, c, d) {
+                return c - Tween.Bounce.easeOut(d-t, 0, c, d) + b;
+            },
+            easeOut: function(t, b, c, d) {
+                if ((t /= d) < (1 / 2.75)) {
+                    return c * (7.5625 * t * t) + b;
+                } else if (t < (2 / 2.75)) {
+                    return c * (7.5625 * (t -= (1.5 / 2.75)) * t + .75) + b;
+                } else if (t < (2.5 / 2.75)) {
+                    return c * (7.5625 * (t -= (2.25 / 2.75)) * t + .9375) + b;
+                } else {
+                    return c * (7.5625 * (t -= (2.625 / 2.75)) * t + .984375) + b;
+                }
+            },
+            easeInOut: function(t, b, c, d) {
+                if (t < d / 2) {
+                    return Tween.Bounce.easeIn(t * 2, 0, c, d) * .5 + b;
+                } else {
+                    return Tween.Bounce.easeOut(t * 2 - d, 0, c, d) * .5 + c * .5 + b;
+                }
+            }
+        }
+    }
+
+    var $ = function (id) {
+        return typeof id === "string"? document.getElementById(id) : id;
+    };
+
+    var Each = function (list, fun) {
+        for (var i = 0, len = list.length; i < len; i++) {
+            fun(list[i], i);
+        }
+    };
+
+    var fun, iChart = 550, iDuration = 100;
+
+    function Move() {
+        var oM = $("idMove").style, oL = $("idLine").style, t = 0, c = 500, d = iDuration;
+        oM.left = oL.left = "0px";
+        clearTimeout(Move._t);
+
+        function _run() {
+            if (t < d) {
+                t++;
+                oM.left = Math.ceil(fun(t, 0, c, d)) + "px";
+                oL.left = Math.ceil(Tween.Linear(t, 0, iChart, d)) + "px";
+                Move._t = setTimeout(_run, 10);
+            } else {
+                oM.left = c + "px";
+                oL.left = iChart + "px";
+            }
+        }
+
+        _run();
+    }
+
+    function Chart() {
+        var a = [];
+        for (var i = 0; i < iChart; i++) {
+            a.push('<div class="charLine" style="left:' + (i - 1) + 'px;top:' + (Math.ceil(fun(i, 200, -200, iChart))) + 'px;"><\/div>');
+        }
+        $("idChart").innerHTML = a.join("");
+    }
+
+
+    var arrTween = document.getElementsByName("vTween");
+    var arrEase = document.getElementsByName("vEase");
+
+    Each(arrTween, function (o) {
+        o.onclick = function () {
+            SetFun();
+            Chart();
+        }
+    });
+    Each(arrEase, function (o) {
+        o.onclick = function () {
+            SetFun();
+            Chart();
+        }
+    });
+
+    function SetFun() {
+        var sTween, sEase;
+        Each(arrTween, function (o) {
+            if (o.checked) {
+                sTween = o.value;
+            }
+        });
+        Each(arrEase, function (o) {
+            if (o.checked) {
+                sEase = o.value;
+            }
+        });
+        fun = sTween == "Linear" ? Tween.Linear : Tween[sTween][sEase];
+    }
+
+    $("idRun").onclick = function () {
+        SetFun();
+        Chart();
+        Move();
+    };
+
+    $("idSpeed").onclick = function () {
+        if (iDuration == 100) {
+            iDuration = 500;
+            this.value = "加快速度";
+        } else {
+            iDuration = 100;
+            this.value = "减慢速度";
+        }
+    }
+
+
+
+</script>
+</html>
