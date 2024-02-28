@@ -1,6 +1,6 @@
 {
   "name": "@sword0916/wings-fill",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "description": "tween.js 补间动画",
   "private": false,
   "main": "./src",

@@ -1,5 +1,7 @@
 # wings-fill(补间动画)
 
+git地址：https://github.com/Sword0916/wings-fill
+
 ## 一、项目安装和引用
 ### 1、安装
 ```
