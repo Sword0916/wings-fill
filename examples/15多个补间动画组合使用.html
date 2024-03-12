@@ -44,8 +44,13 @@
 
     let box = document.getElementById("box");
     function animate() {
+        /**
+         * 也可以使用类原型上提供的update()方法驱动全部实例。
+         * WingsFill.update();
+         */
         wingsFill1.update();
         wingsFill2.update();
+
         box.style.top = entity.y;
         box.style.left = entity.x;
         box.style.backgroundColor = `rgb(${entity.r} ${entity.g} ${entity.b})`

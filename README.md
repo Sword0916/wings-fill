@@ -121,10 +121,25 @@ function completeFun(obj) {
 ## 七、暂停和继续
 
 ```javascript
-//暂停方法
+//实例暂停方法
 wingsFill.pause();
-//继续方法
+//实例继续方法
 wingsFill.play();
+
+
+//在类的原型上提供了全局的暂停和继续方法。
+/**
+* WingsFill是引入的WingsFill类。
+* 全部实例都暂停
+*/
+WingsFill.pause();
+
+/**
+* WingsFill是引入的WingsFill类。
+* 全部实例都继续
+*/
+WingsFill.play();
+
 ```
 
 ## 八、顺序执行

@@ -27,8 +27,12 @@ export default class Fill{
         this.nextFill = null;//下一个补间动画
 
         this.isStart = false;//是否开始
-        this.isPause = false;//是否继续
+        this.isPause = false;//是否暂停
         this.isComplete = false;//是否完成
+        //this.isStart = false; this.isComplete = false;    ==> 未开始
+        //this.isStart = true; this.isComplete = false;     ==> 正在运行
+        //this.isStart = false; this.isComplete = true;     ==> 已结束
+        //this.isStart = true; this.isComplete = true;      ==> 不存在
         this.isReverse = false;//是否倒序
         this.isYoyo = false;//是否yoyo
 
@@ -96,8 +100,8 @@ export default class Fill{
     }
 
     //更新方法
-    update() {
-        if(!this.isStart) {
+    update(isSelf = false) {
+        if(!this.isStart && !this.isComplete) {
             return this;
         }
 
@@ -106,6 +110,7 @@ export default class Fill{
             let repeatCount = this.clock.deltaTime / this.duration;
             if(!this.isLoop && repeatCount >= this.repeatNum) {
                 this.clock.stop();
+                this.isStart = false;
                 this.isComplete = true;
             }
 
@@ -114,32 +119,42 @@ export default class Fill{
 
             this.isComplete && this._handleComplete();
 
-        } else if(this.isComplete && this.nextFill) {
+        } else if(!isSelf && this.isComplete && this.nextFill) {
             this.nextFill.update();
         }
         return this;
     }
 
     //暂停
-    pause() {
+    pause(isSelf = false) {
+        if(!this.isStart && !this.isComplete) {
+            return this;
+        }
+
         if(!this.isComplete && !this.isPause) {
             this.isPause = true;
             this.clock.pause();
             this.pauseFun && this.pauseFun(this.startEntity);
-        } else if(this.nextFill){
+        } else if(!isSelf && this.isComplete && this.nextFill){
             this.nextFill.pause();
         }
+        return this;
     }
 
     //继续
-    play() {
+    play(isSelf = false) {
+        if(!this.isStart && !this.isComplete) {
+            return this;
+        }
+
         if(!this.isComplete && this.isPause) {
             this.isPause = false;
             this.clock.play();
             this.playFun && this.playFun(this.startEntity);
-        } else if(this.nextFill) {
+        } else if(!isSelf && this.isComplete && this.nextFill) {
             this.nextFill.play();
         }
+        return this;
     }
 
     //下一步补间动画
