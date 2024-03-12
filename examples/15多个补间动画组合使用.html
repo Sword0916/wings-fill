@@ -32,14 +32,14 @@
 </body>
 <script type="text/javascript">
     let entity = {x: 0, y: 0, r: 255, g: 0, b: 0, rotate: 0};
+    //控制位置和颜色
     let wingsFill1 = new WingsFill(entity)
         .to({x: 200, y: 0, r: 0, g: 255, b: 0}, 2000)
-        .easing("easeOutBounce") //移动是“easeOutBounce”(非线性)
         .start();
 
+    //控制旋转
     let wingsFill2 = new WingsFill(entity)
         .to({rotate: 90}, 2000)
-        .easing("linear") //旋转是“linear”(线性)
         .start();
 
     let box = document.getElementById("box");
