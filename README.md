@@ -1,6 +1,10 @@
 # wings-fill(补间动画)
 
-git地址：https://github.com/Sword0916/wings-fill
+npm地址:https://www.npmjs.com/package/@sword0916/wings-fill
+
+github地址:https://github.com/Sword0916/wings-fill
+
+简书地址:https://www.jianshu.com/p/98bf5e588cb4
 
 ## 一、项目安装和引用
 ### 1、安装
@@ -12,6 +16,12 @@ npm i @sword0916/wings-fill
 ```
 import WingsFill from "@sword0916/wings-fill"
 ```
+```
+<!--也可以将项目中dist文件夹中打包好的wings-fill.js用script标签引入。-->
+<script type="text/javascript" src="../dist/wings-fill.js"></script>
+```
+
+
 
 ## 二、创建补间动画对象
 ### 1、初始化一个“补间动画”对象
@@ -22,6 +32,9 @@ let wingsFill = new WingsFill(entity)
         .to({x: 200, y: 200}, 2000)
         .start();
 ```
+![02基础用法.gif](https://upload-images.jianshu.io/upload_images/29665657-cfe68e1248e0ba86.gif?imageMogr2/auto-orient/strip)
+
+
 ### 2、参数列表
 
 |序号|类型|默认值|说明|
@@ -30,9 +43,7 @@ let wingsFill = new WingsFill(entity)
 
 ## 三、设置重复次数
 默认只执行一次，不重复。
-
 如果需要重复，可以使用.repeat()方法设置重复次数。
-
 repeat方法的参数应该是正整数，如果不传参或者参数为非正整数则视为无限循环。
 ```javascript
 //x,y用2秒的时间由(0, 0)移动到(200, 200)。重复两次
@@ -42,6 +53,7 @@ let wingsFill = new WingsFill(entity)
     .repeat(2)//重复2次。如果设置2.5则会转为2
     .start();
 ```
+![03-01循环2次.gif](https://upload-images.jianshu.io/upload_images/29665657-6e40da991be121a8.gif?imageMogr2/auto-orient/strip)
 
 ```javascript
 //rotate用2秒的时间由0到360；无限循环
@@ -51,6 +63,8 @@ let wingsFill = new WingsFill(entity)
     .repeat()//无限循环
     .start();
 ```
+![03-02无限循环.gif](https://upload-images.jianshu.io/upload_images/29665657-ac5e67d87ac9d110.gif?imageMogr2/auto-orient/strip)
+
 
 ## 四、设置yoyo
 
@@ -65,6 +79,7 @@ let wingsFill = new WingsFill(entity)
     .yoyo(true)// 设置yoyo
     .start();
 ```
+![04yoyo.gif](https://upload-images.jianshu.io/upload_images/29665657-d63145c43be550d4.gif?imageMogr2/auto-orient/strip)
 
 
 ## 五、设置延时
@@ -72,7 +87,6 @@ let wingsFill = new WingsFill(entity)
 如果需要延时执行，可以使用.delay()方法
 ```javascript
 //x,y用2秒的时间由(0, 0)移动到(200, 200)。
-//然后用2秒的时间由(200, 200)移动到(0, 0)。
 //延时3秒执行
 let entity = {x: 0, y: 0};
 let wingsFill = new WingsFill(entity)
@@ -80,6 +94,7 @@ let wingsFill = new WingsFill(entity)
     .delay(3000)// 设置延时时长，单位是毫秒
     .start();
 ```
+![05设置延时.gif](https://upload-images.jianshu.io/upload_images/29665657-d76e0deb871e3553.gif?imageMogr2/auto-orient/strip)
 
 
 
@@ -117,6 +132,8 @@ function completeFun(obj) {
     console.log("completeFun", obj);
 }
 ```
+![06预留事件钩子.gif](https://upload-images.jianshu.io/upload_images/29665657-d5fb0c4839cdc04b.gif?imageMogr2/auto-orient/strip)
+
 
 ## 七、暂停和继续
 
@@ -176,6 +193,10 @@ let wingsFill4 = new WingsFill()
 //wingsFill1 到 wingsFill2 到 wingsFill3 到 wingsFill4 一直重复循环
  wingsFill1.chain(wingsFill2).chain(wingsFill3).chain(wingsFill4).chain(wingsFill1);
 ```
+![08-01组合成链.gif](https://upload-images.jianshu.io/upload_images/29665657-8d5694a96531fbb9.gif?imageMogr2/auto-orient/strip)
+
+![08-02组合成环.gif](https://upload-images.jianshu.io/upload_images/29665657-19187c508061cd6e.gif?imageMogr2/auto-orient/strip)
+
 
 ## 九、设置缓动函数
 
@@ -194,6 +215,7 @@ let wingsFill = new WingsFill(entity)
     .easing(WingsFill.Easing.Bounce.easeInOut) //设置缓动函数
     .start();
 ```
+![09设置缓动.gif](https://upload-images.jianshu.io/upload_images/29665657-c1d0edf45cdfaeb8.gif?imageMogr2/auto-orient/strip)
 
 ## 十、驱动补间动画
 所有的补间动画实例都需要驱动方法来驱动才能正常工作。
@@ -227,5 +249,3 @@ function animate() {
 
 animate();
 ```
-
-
