@@ -1,0 +1,30 @@
+{
+  "name": "@sword0916/wings-fill",
+  "version": "1.0.20",
+  "private": false,
+  "description": "tween.js 补间动画",
+  "scripts": {
+    "test": "live-server",
+    "dev": "vite",
+    "build": "vite build",
+    "pub": "npm publish --access public"
+  },
+  "author": "Sword",
+  "keywords": [
+    "tween.js",
+    "补间动画"
+  ],
+  "files": ["dist"],
+  "main": "./dist/wings-fill.js",
+  "module": "./dist/wings-fill.mjs",
+  "unpkg": "./dist/wings-fill.js",
+  "exports": {
+    ".": {
+      "import": "./dist/wings-fill.mjs",
+      "require": "./dist/wings-fill.js"
+    }
+  },
+  "devDependencies": {
+    "vite": "^6.3.5"
+  }
+}

@@ -1,0 +1,15 @@
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### others ###
+node_modules
+.svn
+*.log
+*.xml.versionsBackup
+*.swp
+
+

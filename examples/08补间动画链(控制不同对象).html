@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>测试页面</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box{
+            position: absolute;
+
+            width: 100px;
+            height: 100px;
+            background-color: grey;
+        }
+        #box1{
+            background-color: darkred;
+            top: 0px;
+            left: 0px;
+        }
+        #box2{
+            background-color: gold;
+            top: 200px;
+            left: 0px;
+        }
+        #box3{
+            background-color: cornflowerblue;
+            top: 200px;
+            left: 200px;
+        }
+        #box4{
+            background-color: darkgreen;
+            top: 0px;
+            left: 200px;
+        }
+        .border{
+            border: 1px solid gray;
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+    <script type="text/javascript" src="../dist/wings-fill.js"></script>
+</head>
+<body>
+<div class="border">
+
+</div>
+<div id="box1" class="box"></div>
+<div id="box2" class="box"></div>
+<div id="box3" class="box"></div>
+<div id="box4" class="box"></div>
+</body>
+<script type="text/javascript">
+    let entity1 = {x: 0, y: 0};
+    let wingsFill1 = new WingsFill(entity1)
+        .to({x: 0, y: 200}, 2000)
+        .start();
+
+    let entity2 = {x: 0, y: 200};
+    let wingsFill2 = new WingsFill(entity2)
+        .to({x: 200, y: 200}, 2000);
+
+    let entity3 = {x: 200, y: 200};
+    let wingsFill3 = new WingsFill(entity3)
+        .to({x: 200, y: 0}, 2000);
+
+    let entity4 = {x: 200, y: 0};
+    let wingsFill4 = new WingsFill(entity4)
+        .to({x: 0, y: 0}, 2000);
+
+    //wingsFill1 到 wingsFill2 到 wingsFill3 到 wingsFill4 组合成链，顺序执行。
+    wingsFill1.chain(wingsFill2).chain(wingsFill3).chain(wingsFill4);
+
+    let box1 = document.getElementById("box1");
+    let box2 = document.getElementById("box2");
+    let box3 = document.getElementById("box3");
+    let box4 = document.getElementById("box4");
+
+    function animate() {
+        wingsFill1.update();
+        box1.style.top = entity1.y;
+        box1.style.left = entity1.x;
+
+        box2.style.top = entity2.y;
+        box2.style.left = entity2.x;
+
+        box3.style.top = entity3.y;
+        box3.style.left = entity3.x;
+
+        box4.style.top = entity4.y;
+        box4.style.left = entity4.x;
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+</script>
+</html>

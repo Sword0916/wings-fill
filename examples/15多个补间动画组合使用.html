@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>测试页面</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #box{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100px;
+            height: 100px;
+            background-color: grey;
+        }
+        .border{
+            border: 1px solid gray;
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+    <script type="text/javascript" src="../dist/wings-fill.js"></script>
+</head>
+<body>
+<div class="border">
+
+</div>
+<div id="box"></div>
+</body>
+<script type="text/javascript">
+    let entity = {x: 0, y: 0, r: 255, g: 0, b: 0, rotate: 0};
+    //控制位置和颜色
+    let wingsFill1 = new WingsFill(entity)
+        .to({x: 200, y: 0, r: 0, g: 255, b: 0}, 2000)
+        .start();
+
+    //控制旋转
+    let wingsFill2 = new WingsFill(entity)
+        .to({rotate: 90}, 2000)
+        .start();
+
+    let box = document.getElementById("box");
+    function animate() {
+        /**
+         * 也可以使用类原型上提供的update()方法驱动全部实例。
+         * WingsFill.update();
+         */
+        wingsFill1.update();
+        wingsFill2.update();
+
+        box.style.top = entity.y;
+        box.style.left = entity.x;
+        box.style.backgroundColor = `rgb(${entity.r} ${entity.g} ${entity.b})`
+        box.style.transform = `rotate(${entity.rotate}deg)`;
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+
+</script>
+</html>
