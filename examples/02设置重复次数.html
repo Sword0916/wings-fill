@@ -22,7 +22,6 @@
             height: 300px;
         }
     </style>
-    <script type="text/javascript" src="../dist/wings-fill.js"></script>
 </head>
 <body>
 <div class="border">
@@ -31,7 +30,8 @@
 <div id="box"></div>
 
 </body>
-<script type="text/javascript">
+<script type="module">
+    import WingsFill from "../dist/wings-fill.mjs";
     let entity = {x: 0, y: 0, r: 255, g: 0, b: 0, rotate: 0};
     let wingsFill1 = new WingsFill(entity)
         .to({x: 200, y: 0, r: 0, g: 255, b: 0, rotate: 90}, 2000)
